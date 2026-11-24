@@ -17,7 +17,7 @@ ProofVault is a digital forensics and evidence integrity management system built
 8. [Database Schema](#8-database-schema)
 9. [API Documentation](#9-api-documentation)
 10. [SHA-256 Verification Engine](#10-sha-256-verification-engine)
-11. [Screenshots](#11-screenshots)
+11. [User Interface and Dashboard Views](#11-user-interface-and-dashboard-views)
 12. [Testing](#12-testing)
 13. [Security Considerations and Limitations](#13-security-considerations-and-limitations)
 14. [Future Improvements](#14-future-improvements)
@@ -562,29 +562,33 @@ private String bytesToHex(byte[] bytes) {
 
 ---
 
-## 11. Screenshots
+## 11. User Interface and Dashboard Views
 
-*The screenshots below illustrate the responsive light theme interface.*
+ProofVault features a responsive, light-theme interface built with vanilla HTML5, CSS3, and JavaScript, styled with warm ivory and slate tones using Inter and JetBrains Mono typography.
 
 ### 1. Evidence Overview
-Displays live custody metrics, database and storage engine statuses, recent evidence intake, and verification activity.
-> *Placeholder: Add screenshot of Overview screen at `docs/screenshots/01_overview.png`*
+- **Forensic Metrics:** Real-time counters displaying Total Evidence deposited, Verified artifacts, Tamper Alerts triggered, and items Pending verification.
+- **Subsystem Health Status:** Live connection indicators for the MySQL database, local `vault_storage/` disk directory, SHA-256 worker engine, and hash-chain linkage.
+- **Recent Custody Events:** Chronological snapshot of the latest 5 evidence deposits and verification checks.
 
-### 2. Evidence Intake & Registration Form
-Drag-and-drop file ingestion zone with investigator identity, category selector, and custody protocol instructions.
-> *Placeholder: Add screenshot of Register screen at `docs/screenshots/02_register.png`*
+### 2. Evidence Registration
+- **Interactive Ingestion Zone:** Drag-and-drop file upload target supporting PDF, DOCX, TXT, images, packet captures, and memory dumps up to 50 MB.
+- **Investigator Attribution:** Mandatory fields for investigator identity/badge number and forensic evidence category.
+- **Post-Registration Feedback:** Instant presentation of the assigned Evidence ID (`EV-YYYY-XXXXXXXX`) and computed 64-character SHA-256 digest, complete with one-click clipboard copying and a direct "Verify this file now" navigation shortcut.
 
-### 3. Integrity Verification & Tamper Comparison
-Side-by-side cryptographic comparison panel showing vault baseline digest, candidate digest, and exact bitstream match indication.
-> *Placeholder: Add screenshot of Verify screen at `docs/screenshots/03_verify.png`*
+### 3. Integrity Verification
+- **Dual Lookup:** Flexible input accepting either the registered Evidence ID or the reference SHA-256 hash.
+- **Bitstream Inspection Panel:** Side-by-side comparison block rendering the registered vault digest against the freshly calculated candidate digest.
+- **Visual Integrity State:** Green `INTEGRITY VERIFIED` confirmation upon bitstream equality, or high-contrast red `TAMPER ALERT` highlighting corrupted or altered bits.
 
 ### 4. Evidence Records Catalog
-Searchable catalog supporting multi-criteria filtering by filename, Evidence ID, investigator, category, and status.
-> *Placeholder: Add screenshot of Records screen at `docs/screenshots/04_records.png`*
+- **Multi-Criteria Search & Filtering:** Dynamic client-side filtering by filename, Evidence ID, investigator, category, and verification status.
+- **Monospaced Cryptographic Digests:** Truncated SHA-256 strings with click-to-copy utility.
+- **Forensic Detail Modal:** Inspection dialog displaying complete record metadata, exact byte sizes, full SHA-256 fingerprints, and quick verification actions.
 
 ### 5. System Audit Trail & Hash-Chain Validator
-Tamper-evident event log with live hash-chain linkage verification.
-> *Placeholder: Add screenshot of Audit screen at `docs/screenshots/05_audit.png`*
+- **Chronological Log Table:** Tamper-evident record of all system events, color-coded by outcome (green for passed, red for failed/rejected).
+- **Interactive Hash-Chain Auditor:** Dedicated "Verify Chain Linkage" action triggering `/api/audit/verify` to audit cryptographic integrity from Genesis block forward.
 
 ---
 
